@@ -1,0 +1,221 @@
+﻿<Window x:Class="gColor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wpfx="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:vm="clr-namespace:gColor.ViewModel"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        Title="GIA Color Identification Tool" Height="350" Width="525" WindowState="Maximized">
+
+    <Window.Resources>
+        <ObjectDataProvider x:Key="cameraModel" 
+                        MethodName="GetNames" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="vm:CameraModel" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding ControlVM.CommandCalibrate}" Key="Escape" />
+        <KeyBinding Command="{Binding ControlVM.CommandMeasure}" Key="F3" />
+    </Window.InputBindings>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*" ></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <Menu KeyboardNavigation.TabNavigation="Cycle" DataContext="{Binding MenuVM}">
+                <MenuItem Header="_Admin">
+                    <MenuItem Header="Log in" Command="{Binding CommandAdmin}" Visibility="{Binding IsNotAdmin}" />
+                    <MenuItem Header="Log out" Command="{Binding CommandLogOut}" Visibility="{Binding IsAdmin}" />
+                </MenuItem>
+                <MenuItem Header="_Settings" Visibility="{Binding IsAdmin}">
+                    <MenuItem Header="Camera" Command="{Binding CommandCameraSettings}"/>
+                    <MenuItem Header="Other" Command="{Binding CommandSettings}"/>
+                </MenuItem>
+                <!--<MenuItem Header="_Tools" Visibility="{Binding IsAdmin}">
+                    <MenuItem Header="Test" Command="{Binding CommandTest}"/>
+                </MenuItem>-->
+                <MenuItem Header="_Help">
+                    <MenuItem Header="About gColor" Command="{Binding CommandAbout}" />
+                </MenuItem>
+            </Menu>
+            <ToolBarTray DataContext="{Binding ControlVM}" IsEnabled="{Binding IsReady}" x:Name="toolBar">
+                <ToolBar Band="1" BandIndex="1" IsEnabled="{Binding NotConnected}">
+                    <Button ToolTip="Connect to Camera" Style="{StaticResource ToolbarButton}"
+                            Command="{Binding CommandConnect}">
+                        <Image Source="..\Images\camera.png" />
+                    </Button>
+                    <ComboBox Width="80" Margin="10,0,0,0" ItemsSource="{Binding Source={StaticResource cameraModel}}"
+                              SelectedIndex="{Binding Path=CameraModelProperty}"
+                              Visibility="{Binding IsAdmin}"></ComboBox>
+                </ToolBar>
+                <ToolBar Band="1" BandIndex="2">
+                    <Button ToolTip="Calibrate" Style="{StaticResource ToolbarButton}"
+                            Command="{Binding CommandCalibrate}">
+                        <Image Source="..\Images\calibrate.png" />
+                    </Button>
+                    <Button ToolTip="{Binding MeasureIconToolTip}" Style="{StaticResource ToolbarButton}"
+                            Command="{Binding CommandMeasure}">
+                        <Button.Resources>
+                            <vm:StringToImageConverter x:Key="stringToImageConverter" />
+                        </Button.Resources>
+                        <DockPanel LastChildFill="True">
+                            <Image Source="{Binding MeasureIconImageSource, Converter={StaticResource stringToImageConverter}}" />
+                            <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center"
+                                       Text="{Binding MeasureIconText}"></TextBlock>
+                        </DockPanel>
+                    </Button>
+                    <Button ToolTip="Abort" Style="{StaticResource ToolbarButton}"
+                            Command="{Binding CommandCancel}">
+                        <Image Source="..\Images\cancel.png" />
+                    </Button>
+                </ToolBar>
+                <ToolBar Band="1" BandIndex="3" Visibility="{Binding IsAdmin}">
+                    <ToggleButton ToolTip="Object Detect On/Off"
+                            IsChecked="{Binding ObjectDetectOn}">
+                        <Image Source="..\Images\object_detect.png" />
+                    </ToggleButton>
+                    <Button ToolTip="Calculate Color" Style="{StaticResource ToolbarButton}"
+                            Command="{Binding CommandColor}">
+                        <Image Source="..\Images\color.png" />
+                    </Button>
+                    <Button ToolTip="Calculate Background" Style="{StaticResource ToolbarButton}"
+                            Command="{Binding CommandBackground}">
+                        <Image Source="..\Images\background.png" />
+                    </Button>
+                </ToolBar>
+                <ToolBar Band="1" BandIndex="4">
+                    <Button ToolTip="Open hemisphere" Style="{StaticResource ToolbarButton}"
+                            Command="{Binding CommandOpenHemisphere}">
+                        <Image Source="..\Images\open_hemi.png" />
+                    </Button>
+                    <Button ToolTip="Close hemisphere" Style="{StaticResource ToolbarButton}"
+                            Command="{Binding CommandCloseHemisphere}">
+                        <Image Source="..\Images\close_hemi.png" />
+                    </Button>
+                </ToolBar>
+                <ToolBar Band="1" BandIndex="5" Visibility="{Binding IsAdmin}">
+                    <Button ToolTip="Continuous Counter Clockwise" Style="{StaticResource ToolbarButton}"
+                            Command="{Binding CommandContinuousCCW}">
+                        <Image Source="..\Images\fastbackward.png" />
+                    </Button>
+                    <Button ToolTip="Counter Clockwise Step" Style="{StaticResource ToolbarButton}"
+                            Command="{Binding CommandStepCCW}">
+                        <Image Source="..\Images\backward.png" />
+                    </Button>
+                    <Button ToolTip="Stop" Style="{StaticResource ToolbarButton}"
+                            Command="{Binding CommandStop}">
+                        <Image Source="..\Images\stop.png" />
+                    </Button>
+                    <Button ToolTip="Clockwise Step" Style="{StaticResource ToolbarButton}"
+                            Command="{Binding CommandStepCW}">
+                        <Image Source="..\Images\forward.png" />
+                    </Button>
+                    <Button ToolTip="Continuous Clockwise" Style="{StaticResource ToolbarButton}"
+                            Command="{Binding CommandContinuousCW}">
+                        <Image Source="..\Images\fastforward.png" />
+                    </Button>
+                </ToolBar>
+                <ToolBar Band="1" BandIndex="6" Visibility="{Binding IsAdmin}">
+                    <Button ToolTip="Save Image" Style="{StaticResource ToolbarButton}"
+                            Command="{Binding CommandSave}">
+                        <Image Source="..\Images\save.png" />
+                    </Button>
+                </ToolBar>
+            </ToolBarTray>
+        </StackPanel>
+        <Grid Grid.Row="1" DataContext="{Binding ControlVM}">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="24"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="{Binding GridSplitterWidth}"></ColumnDefinition>
+                <ColumnDefinition Width="{Binding LogWindowWidth, Mode=TwoWay}"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border>
+                <Grid x:Name="gridCameraImage">
+                    <Image Source="{Binding CameraImage}" VerticalAlignment="Center"
+                           vm:SizeObserver.Observe="True" 
+                           vm:SizeObserver.ObservedWidth="{Binding ImageContainerWidth, Mode=OneWayToSource}"
+                           vm:SizeObserver.ObservedHeight="{Binding ImageContainerHeight, Mode=OneWayToSource}"></Image>
+                    <vm:NoSizeDecorator Height="1" Margin="{Binding CrossHairVerticalOffset}">
+                        <Line StrokeThickness="1" X2="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                            Stroke="{Binding CrossHairBrush}" 
+                            StrokeDashArray="10 5">
+                        </Line>
+                    </vm:NoSizeDecorator>
+                    <vm:NoSizeDecorator Width="1" Margin="{Binding CrossHairHorizontalOffset}">
+                        <Line StrokeThickness="1" Y2="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                              Stroke="{Binding CrossHairBrush}"
+                              StrokeDashArray="10 5" >
+                        </Line>
+                    </vm:NoSizeDecorator>
+                    
+                    
+                    <!--<Line Stroke="Black" StrokeThickness="0.5" X1="{Binding VerticalLineX}"
+                          X2="{Binding VerticalLineX}" Y1="{Binding VerticalLineStartY}"
+                          Y2="{Binding VerticalLineEndY}" />-->
+                </Grid>
+            </Border>
+            <GridSplitter Background="#FFD3D3D3"  Grid.Column="1" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            <DockPanel Grid.Column="2" DataContext="{Binding LogEntryVM}">
+                <!--<TextBlock Text="{Binding Count, StringFormat='{}{0} Items'}"
+                        DockPanel.Dock="Top"/>-->
+                <ItemsControl ItemsSource="{Binding LogEntries}" Style="{StaticResource LogViewerStyle}">
+                    <ItemsControl.Template>
+                        <ControlTemplate>
+                            <ScrollViewer CanContentScroll="True">
+                                <i:Interaction.Behaviors>
+                                    <vm:AutoScrollBehavior />
+                                </i:Interaction.Behaviors>
+                                <ItemsPresenter/>
+                            </ScrollViewer>
+                        </ControlTemplate>
+                    </ItemsControl.Template>
+                    <ItemsControl.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Export Log" Command="{Binding CommandExportLog}"/>
+                        </ContextMenu>
+                    </ItemsControl.ContextMenu>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel IsItemsHost="True"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </DockPanel>
+            <Popup Grid.Row="1" PlacementTarget="{Binding ElementName=toolBar}" Placement="Bottom" 
+                           DataContext="{Binding LogEntryVM}"
+                           IsOpen="{Binding ShowPopup}" 
+                           StaysOpen="False" AllowsTransparency="True"
+                           PopupAnimation="Slide"
+                           HorizontalOffset="10" 
+                           VerticalOffset="5">
+                <Border BorderBrush="SlateBlue" BorderThickness="5" CornerRadius="2"
+                                Padding="5">
+                    <TextBlock Text="{Binding Message}" x:Name="txtPopupMessage"
+                                       Width="350"
+                                       TextWrapping="Wrap" FontSize="22"/>
+                </Border>
+            </Popup>
+            <Grid Grid.Row="2" Grid.ColumnSpan="3" Background="LightGray">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.8*"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" HorizontalAlignment="Left" Content="{Binding Status}"></Label>
+                <wpfx:BusyIndicator Grid.Column="1" x:Name="BusyBar" 
+                                    IsBusy="{Binding Busy}" 
+                                    HorizontalAlignment="Right" Height="20" VerticalAlignment="Center"/>
+            </Grid>
+        </Grid>
+
+    </Grid>
+</Window>

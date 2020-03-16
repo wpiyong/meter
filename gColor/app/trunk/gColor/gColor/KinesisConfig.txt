@@ -1,0 +1,8 @@
+﻿AccessKey=AKIA3ZEG77JD7CDHGHYD
+SecretKey=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
+StreamName=CV-Device-Stream
+RegionEndpoint=us-west-2
+PartitionKey=ProdPartitionKey
+#MaxConnections=1
+#RequestTimeout=60000
+#RecordMaxBufferedTime=3000

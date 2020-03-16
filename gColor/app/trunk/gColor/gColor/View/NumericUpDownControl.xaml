@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="gColor.View.NumericUpDownControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:view="clr-namespace:gColor.View"
+             Height="26" >
+    <UserControl.Resources>
+        <ResourceDictionary Source="NumericUpDownControlResources.xaml" />
+    </UserControl.Resources>
+    <StackPanel Orientation="Horizontal" x:Name="LayoutRoot">
+        <Label x:Name="_prefix" VerticalAlignment="Center"
+               Content="{Binding Path=Prefix, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox          
+            x:Name="_textbox"                          
+            Width ="50" BorderThickness="1" Height="20" Margin="1,0" BorderBrush="White"
+            TextAlignment="Right"
+            Style="{StaticResource textBoxInError}" IsReadOnly="{Binding ReadOnly}"> 
+            <TextBox.Text>
+                <Binding Path="Value"              
+                    Mode="TwoWay"
+                    RelativeSource="{RelativeSource FindAncestor,                 
+                        AncestorLevel=1,                  
+                        AncestorType={x:Type view:NumericUpDownControl}}"
+                    UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <view:ValueRangeRule ValidationStep="UpdatedValue" />
+                    </Binding.ValidationRules>
+
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <StackPanel VerticalAlignment="Center">
+            <Button x:Name="buttonIncrement" Style="{StaticResource DisableButton}" >
+                <Image Source="..\Images\up.png" />
+            </Button>
+            <Button x:Name="buttonDecrement" Style="{StaticResource DisableButton}">
+                <Image Source="..\Images\down.png" />
+            </Button>
+        </StackPanel>
+        <Label x:Name="_postfix" VerticalAlignment="Center"
+               Content="{Binding Path=Postfix, UpdateSourceTrigger=PropertyChanged}" />
+    </StackPanel>
+</UserControl>

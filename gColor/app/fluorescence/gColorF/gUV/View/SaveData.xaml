@@ -1,0 +1,95 @@
+﻿<Window x:Class="gUV.View.SaveData"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:gUV.ViewModel"
+        Title="Results" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Width="450" Height="280">
+
+    <Window.Resources>
+        <Style x:Key="textStyleTextBox" TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={RelativeSource Self},
+                                Path=(Validation.Errors)[0].ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Viewbox>
+        <Grid Width="450" MaxHeight="270">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="0.2*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border>
+                <StackPanel Margin="0,10,0,0">
+                    <TextBox Width="420" Margin="0,5,0,5" BorderThickness="0" IsReadOnly="True"
+                         Background="LightGray"
+                         Text="{Binding Cassette.Instruction, Mode=OneWay}" HorizontalAlignment="Center"
+                         TextAlignment="Center"
+                         FontSize="20">
+                    </TextBox>
+                    <TextBox Width="420" Margin="0,5,0,5" BorderThickness="0" IsReadOnly="True"
+                         Background="LightGray"
+                         Text="{Binding Cassette.WarningMessage, Mode=OneWay}" HorizontalAlignment="Center"
+                         TextAlignment="Center"
+                         FontSize="20"
+                         Visibility="{Binding Cassette.ShowMultiColorComment}">
+                    </TextBox>
+                    <TextBox Width="420" Margin="0,5,0,5" BorderThickness="0" IsReadOnly="True"
+                         Background="LightGray"
+                         Text="{Binding Cassette.FDescription, Mode=OneWay}" HorizontalAlignment="Center"
+                         TextAlignment="Center"
+                         FontSize="34">
+                    </TextBox>
+                    <!--<StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Center">
+                        <Label FontSize="14" FontWeight="Bold">Color:</Label>
+                        <Label FontSize="14">L</Label>
+                        <TextBox Width="80" BorderThickness="0" IsReadOnly="True" Background="LightGray"
+                             Text="{Binding LValue, Mode=OneWay}" TextAlignment="Center" VerticalAlignment="Center"
+                             FontSize="14"/>
+                        <Label FontSize="14">C</Label>
+                        <TextBox Width="80" BorderThickness="0" IsReadOnly="True" Background="LightGray"
+                             Text="{Binding CValue, Mode=OneWay}" TextAlignment="Center"  VerticalAlignment="Center"
+                             FontSize="14"/>
+                        <Label FontSize="14">H</Label>
+                        <TextBox Width="80" BorderThickness="0" IsReadOnly="True" Background="LightGray"
+                             Text="{Binding HValue, Mode=OneWay}" TextAlignment="Center"  VerticalAlignment="Center"
+                             FontSize="14"/>
+                    </StackPanel>-->
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Center"
+                                Visibility="{Binding ShowFLuorescenceResults}">
+                        <Label FontSize="14" FontWeight="Bold">Fluorescence:</Label>
+                        <Label FontSize="14">L</Label>
+                        <TextBox Width="80" BorderThickness="0" IsReadOnly="True" Background="LightGray"
+                             Text="{Binding LFValue, Mode=OneWay}" TextAlignment="Center" VerticalAlignment="Center"
+                             FontSize="14"/>
+                        <Label FontSize="14">C</Label>
+                        <TextBox Width="80" BorderThickness="0" IsReadOnly="True" Background="LightGray"
+                             Text="{Binding CFValue, Mode=OneWay}" TextAlignment="Center"  VerticalAlignment="Center"
+                             FontSize="14"/>
+                        <Label FontSize="14">H</Label>
+                        <TextBox Width="80" BorderThickness="0" IsReadOnly="True" Background="LightGray"
+                             Text="{Binding HFValue, Mode=OneWay}" TextAlignment="Center"  VerticalAlignment="Center"
+                             FontSize="14"/>
+                    </StackPanel>
+                    <TextBox Width="125"  BorderThickness="1" BorderBrush="Black" IsReadOnly="{Binding DisableControlNumber}"
+                         vm:FocusExtension.LoadedFocusedElement="{Binding RelativeSource={RelativeSource Self}}" 
+                         Margin="0,15,0,15" FontSize="16" TextAlignment="Center"
+                            Text="{Binding Cassette.ControlNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                                        ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                         Style="{StaticResource textStyleTextBox}">
+                    </TextBox>
+                </StackPanel>
+            </Border>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Bottom">
+                <Button Margin="0,0,4,0" Width="70" Height="30" Command="{Binding CommandSave}" IsDefault="True"
+                    CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">Save</Button>
+                <Button Width="70" Command="{Binding CommandCancel}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">Cancel</Button>
+            </StackPanel>
+        </Grid>
+    </Viewbox>
+</Window>

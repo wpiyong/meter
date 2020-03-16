@@ -1,0 +1,150 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="gColor.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="NumberOfSteps" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="RotationDirection" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="MotorPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)">COM1</Value>
+    </Setting>
+    <Setting Name="MotorVelocity" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.18</Value>
+    </Setting>
+    <Setting Name="MotorContinuousVelocity" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.18</Value>
+    </Setting>
+    <Setting Name="SaveMeasuments" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MeasurementsFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">c:\gColor</Value>
+    </Setting>
+    <Setting Name="MeasurementsFileExtension" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.JPG</Value>
+    </Setting>
+    <Setting Name="MotorStepsPerRev" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">20000</Value>
+    </Setting>
+    <Setting Name="Saturation" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">150</Value>
+    </Setting>
+    <Setting Name="Gamma" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="WBConvergence" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.4</Value>
+    </Setting>
+    <Setting Name="CalculateColorAtStep" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="CropTop" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="CropLeft" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">50</Value>
+    </Setting>
+    <Setting Name="CropWidth" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">700</Value>
+    </Setting>
+    <Setting Name="CropHeight" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">400</Value>
+    </Setting>
+    <Setting Name="Hue" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="WBIncrement" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="CrossHairVerticalOffsetPercent" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="CrossHairHorizontalOffsetPercent" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="CrossHairBrush" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ExtractToTextFile" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="TextFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">c:\gColor</Value>
+    </Setting>
+    <Setting Name="WBInitialize" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="WBInitializeRed" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">525</Value>
+    </Setting>
+    <Setting Name="WBInitializeBlue" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">765</Value>
+    </Setting>
+    <Setting Name="Time" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">180</Value>
+    </Setting>
+    <Setting Name="Temperature" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.15</Value>
+    </Setting>
+    <Setting Name="ShutterTime" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">9</Value>
+    </Setting>
+    <Setting Name="ShutterTimeDiff" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="ADiff" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.08</Value>
+    </Setting>
+    <Setting Name="BDiff" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.08</Value>
+    </Setting>
+    <Setting Name="ExtractCalDataToTextFile" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="CalDataTextFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">c:\gColor</Value>
+    </Setting>
+    <Setting Name="DailyMonitorTargetList" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="LConv" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="AConv" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="BConv" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="Lshift" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Ashift" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Bshift" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="AutoOpenClose" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="CameraTempDiff" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.35</Value>
+    </Setting>
+    <Setting Name="BoundaryHash" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MetrologyFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">c:\gColor</Value>
+    </Setting>
+    <Setting Name="FrameRate" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="Sensor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CCD</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,28 @@
+﻿<Window x:Class="gColor.View.HelpAbout"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="About gColor" WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow" ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight">
+    <Grid>
+        <Border Background="#FFFDF8F8">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="0.2*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Background="#FFE8E3E3">
+                    <TextBlock Width="280" Margin="10" TextWrapping="Wrap"
+                               Name="txtAbout">
+
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right">
+                    <Button x:Name="btnOK" Content="OK" Width="70" Margin="4"
+                            Click="btnOK_Click">
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

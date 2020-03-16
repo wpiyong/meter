@@ -1,0 +1,14 @@
+﻿!SaveMaskDataPath=c:\gColor
+kThreshold=125
+hullThreshold=55
+!cannyThreshold1=25
+!cannyThreshold2=75
+UseNewMask=true
+DustDetectOn=true
+ConvexHullOnMask=true
+!kThresholdLab=100
+!UseMeleeMask=False;
+kThresholdCal=75
+hullThresholdCal=55
+!cannyThreshold1Cal=25
+!cannyThreshold2Cal=75

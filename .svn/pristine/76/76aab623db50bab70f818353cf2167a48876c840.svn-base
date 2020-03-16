@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="7703B9A9-0858-4196-AAA8-24B79B57A25D" Name="gColor" Language="1033" Version="1.0" Manufacturer="GIA" 
+           UpgradeCode="66D5AD40-5835-4153-9A45-51FFC4E76217">
+		<Package Id="*" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" 
+             Description="gColor Installer" Manufacturer="GIA"/>
+
+    <PropertyRef Id="NETFRAMEWORK45"/>
+    
+    <Condition Message="You need to be an administrator to install this product.">
+      Privileged
+    </Condition>
+    <Condition Message='This product works on Windows 7 only'>VersionNT = 601</Condition>
+
+    <Condition Message='Microsoft .NET Framework 4.5 package or greater needs to be installed for this installation to continue.'>
+      <![CDATA[Installed OR NETFRAMEWORK45]]>
+    </Condition>
+    
+    <MediaTemplate EmbedCab="yes" />
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		
+		<Feature Id="Complete" Title="gColor" Level="1" Display="expand" ConfigurableDirectory="INSTALLFOLDER"
+             Description="The complete package.">
+			<ComponentGroupRef Id="gColorComponents" />
+		</Feature>
+
+    <!--Dialog size is 493 x 312 pixels-->
+    <WixVariable Id="WixUIDialogBmp" Value="Resource\gia.bmp" />
+    <!--Banner size if 493 x 58 pixels-->
+    <WixVariable Id="WixUIBannerBmp" Value="Resource\banner.bmp" />
+
+    <UI>
+      <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+      <UIRef Id="WixUI_InstallDir"/>
+      <UIRef Id="WixUI_ErrorProgressText" />     
+      
+      <!-- Skip license dialog -->
+      <Publish Dialog="WelcomeDlg"
+               Control="Next"
+               Event="NewDialog"
+               Value="InstallDirDlg"
+               Order="2">1</Publish>
+      <Publish Dialog="InstallDirDlg"
+               Control="Back"
+               Event="NewDialog"
+               Value="WelcomeDlg"
+               Order="2">1</Publish>
+    </UI>
+
+    <Icon Id="gColor.ico" SourceFile="Resource\ColorMeter.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="gColor.ico" />
+    
+  </Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="APPLICATIONROOTDIRECTORY" Name="GIA">
+				  <Directory Id="INSTALLFOLDER" Name="gColor" />
+        </Directory>
+			</Directory>
+      <Directory Id="DesktopFolder" Name="Desktop"/>
+      <Directory Id="ProgramMenuFolder">
+          <Directory Id="ApplicationProgramsFolder" Name="gColor"/>
+      </Directory>
+		</Directory>
+	</Fragment>
+
+    
+	<Fragment>
+		<ComponentGroup Id="gColorComponents" Directory="INSTALLFOLDER">
+      <Component Id="gColor.exe" Guid="35DD6A02-92A9-4485-9E3A-3106D458F691">
+        <File Id="gColor.exe" Source="$(var.gColor.TargetPath)" KeyPath="yes" Checksum="yes">
+          <Shortcut Id="ApplicationStartMenuShortcut" 
+                    Advertise="yes"
+                    Directory="ApplicationProgramsFolder"
+                    Name="gColor" 
+                    Description="Diamond Color Meter"
+                    Icon="gColor.ico"
+                    WorkingDirectory="INSTALLFOLDER"/>
+          <Shortcut Id="DesktopMenuShortcut" 
+                    Advertise="yes"
+                    Icon="gColor.ico"
+                    Directory="DesktopFolder" 
+                    Name="gColor" 
+                    Description="Diamond Color Meter"
+                    WorkingDirectory="INSTALLFOLDER"/>
+        </File>
+        <RemoveFolder Id="ApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall"/>
+        <RemoveFolder Id="ApplicationDesktopFolder" Directory="DesktopFolder" On="uninstall"/>
+      </Component>
+      <Component Id="Xceed.Wpf.Toolkit.dll" Guid="0249F558-DE55-4E86-95CB-744746A4E562">
+        <File Id="Xceed.Wpf.Toolkit.dll" Source="$(var.gColor.TargetDir)Xceed.Wpf.Toolkit.dll" KeyPath="yes" Checksum="yes"/>
+      </Component>
+      <Component Id="System.Windows.Interactivity.dll" Guid="0791A11F-A719-4B93-A6CB-7EC8BD52B810">
+        <File Id="System.Windows.Interactivity.dll" Source="$(var.gColor.TargetDir)System.Windows.Interactivity.dll" KeyPath="yes" Checksum="yes"/>
+      </Component>
+      <Component Id="ClassOpenCV.dll" Guid="40D1407D-478E-4CEB-83A8-6648A7D9A366">
+        <File Id="ClassOpenCV.dll" Source="$(var.ClassOpenCV.TargetPath)" KeyPath="yes" Checksum="yes"/>
+      </Component>
+      <Component Id="Ini.txt" Guid="5378647D-1509-46BC-90ED-913A121F5A88">
+        <File Id="Ini.txt" Source="$(var.gColor.TargetDir)Ini.txt" KeyPath="yes" Checksum="yes"/>
+      </Component>
+
+      <ComponentGroupRef Id="OpenCVComponents"></ComponentGroupRef>
+      <ComponentGroupRef Id="PtGreyComponents"></ComponentGroupRef>
+      <ComponentGroupRef Id="NikonComponents"></ComponentGroupRef>
+    
+      
+    
+    </ComponentGroup>
+	</Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="PtGreyComponents" Directory="INSTALLFOLDER">
+      <Component Id="FlyCap2CameraControl_v100.dll" Guid="643AC35B-AFF9-4A2F-BE1E-FCCB019A53F3">
+        <File Id="FlyCap2CameraControl_v100.dll" Source="$(var.gColor.TargetDir)FlyCap2CameraControl_v100.dll" KeyPath="yes" Checksum="yes"/>
+      </Component>
+      <Component Id="FlyCapture2Managed_v100.dll" Guid="60BD5EC6-B8CC-477D-A403-6F53400EC1DC">
+        <File Id="FlyCapture2Managed_v100.dll" Source="$(var.gColor.TargetDir)FlyCapture2Managed_v100.dll" KeyPath="yes" Checksum="yes"/>
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="NikonComponents" Directory="INSTALLFOLDER">
+      <Component Id="DSU3_ConvLiveImg.dll" Guid="E206C021-71D0-4C0C-95C9-E1EBD6C35CE0">
+        <File Id="DSU3_ConvLiveImg.dll" Source="$(var.gColor.TargetDir)DSU3_ConvLiveImg.dll" KeyPath="yes" Checksum="yes"/>
+      </Component>
+      <Component Id="DSU3_DEF_CORRECTION.dll" Guid="23C13F48-BA75-4750-A420-E717759B5E99">
+        <File Id="DSU3_DEF_CORRECTION.dll" Source="$(var.gColor.TargetDir)DSU3_DEF_CORRECTION.dll" KeyPath="yes" Checksum="yes"/>
+      </Component>
+      <Component Id="SniCam.dll" Guid="96BC369C-06DF-4B42-A6F3-D228E5030C13">
+        <File Id="SniCam.dll" Source="$(var.gColor.TargetDir)SniCam.dll" KeyPath="yes" Checksum="yes"/>
+      </Component>
+      <Component Id="SniCamU3.dll" Guid="A61990DB-8FBF-454A-AB3A-24061D58CBBB">
+        <File Id="SniCamU3.dll" Source="$(var.gColor.TargetDir)SniCamU3.dll" KeyPath="yes" Checksum="yes"/>
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="OpenCVComponents" Directory="INSTALLFOLDER">
+      <Component Id="OpenCvSharp.dll" Guid="B6B1CA9F-4C0C-41AB-8716-FBA86B3C7CEA">
+        <File Id="OpenCvSharp.dll" Source="$(var.gColor.TargetDir)OpenCvSharp.dll" KeyPath="yes" Checksum="yes"/>
+      </Component>
+      <Component Id="opencv_core245.dll" Guid="272E52F6-9681-441A-8AFF-6A8A5B11B31E">
+        <File Id="opencv_core245.dll" Source="$(var.gColor.TargetDir)opencv_core245.dll" KeyPath="yes" Checksum="yes"/>
+      </Component>
+      <Component Id="opencv_highgui245.dll" Guid="7B5BAE97-7B08-4BA8-BF1A-2D1C261BCAB7">
+        <File Id="opencv_highgui245.dll" Source="$(var.gColor.TargetDir)opencv_highgui245.dll" KeyPath="yes" Checksum="yes"/>
+      </Component>
+      <Component Id="opencv_imgproc245.dll" Guid="DF06E268-42CD-439B-94C7-5634D6EB0E64">
+        <File Id="opencv_imgproc245.dll" Source="$(var.gColor.TargetDir)opencv_imgproc245.dll" KeyPath="yes" Checksum="yes"/>
+      </Component>
+      <Component Id="opencv_objdetect245.dll" Guid="6FAAA5ED-7A9C-46CE-8E1E-990653FD57D0">
+        <File Id="opencv_objdetect245.dll" Source="$(var.gColor.TargetDir)opencv_objdetect245.dll" KeyPath="yes" Checksum="yes"/>
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+  
+  
+</Wix>
